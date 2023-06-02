@@ -29,14 +29,13 @@ resource "aws_db_subnet_group" "main" {
 
 resource "aws_db_parameter_group" "default" {
   name   = "${var.name}-${var.env}-pg"
-  family = "aurora-mysql.5.7"
+  family = "aurora-mysql5.7"
 }
 
 resource "aws_rds_cluster" "main" {
   cluster_identifier      = "${var.name}-${var.env}-rds"
   engine                  = "aurora-mysql"
   engine_version          = var.engine_version
-  availability_zones      = ["us-west-2a", "us-west-2b", "us-west-2c"]
   database_name           = "dummy"
   master_username         = data.aws_ssm_parameter.db_user.value
   master_password         = data.aws_ssm_parameter.db_pass.value
